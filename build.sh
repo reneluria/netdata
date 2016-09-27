@@ -4,15 +4,12 @@ DEBIAN_FRONTEND=noninteractive
 
 # some mirrors have issues, i skipped httpredir in favor of an eu mirror
 
-echo "deb http://ftp.nl.debian.org/debian/ jessie main" > /etc/apt/sources.list
-echo "deb http://security.debian.org/debian-security jessie/updates main" >> /etc/apt/sources.list
-
 # install dependencies for build
 
 apt-get -qq update
-apt-get -y install zlib1g-dev uuid-dev libmnl-dev gcc make curl git autoconf autogen automake pkg-config netcat-openbsd jq
-apt-get -y install autoconf-archive lm-sensors nodejs python python-mysqldb python-yaml
-apt-get -y install ssmtp mailutils apcupsd
+apt-get -y install --no-install-recommends zlib1g-dev uuid-dev libmnl-dev gcc make curl git autoconf autogen automake pkg-config netcat-openbsd jq \
+		autoconf-archive lm-sensors nodejs python python-mysqldb python-yaml \
+		ssmtp mailutils apcupsd
 
 # fetch netdata
 
@@ -32,7 +29,6 @@ dpkg -P zlib1g-dev uuid-dev libmnl-dev gcc make git autoconf autogen automake pk
 apt-get -y autoremove
 apt-get clean
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 
 # symlink access log and error log to stdout/stderr
 
